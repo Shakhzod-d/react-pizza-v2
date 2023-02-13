@@ -31,6 +31,7 @@ function Categories() {
         <li>Гриль</li>
         <li>Острые</li>
         <li>Закрытые</li> */}
+        {/* we did this you know */}
       </ul>
     </div>
   );
