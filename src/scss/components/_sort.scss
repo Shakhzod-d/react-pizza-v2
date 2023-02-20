@@ -1,4 +1,4 @@
-@import '../variables';
+@import "../variables";
 
 .sort {
   position: relative;
@@ -6,6 +6,7 @@
   &__label {
     display: flex;
     align-items: center;
+    width: max-content;
 
     svg {
       margin-right: 8px;
@@ -31,7 +32,7 @@
     border-radius: 10px;
     overflow: hidden;
     padding: 10px 0;
-    width: 160px;
+    width: 13rem;
 
     ul {
       overflow: hidden;
