@@ -14,6 +14,7 @@ export const sortList = [
 export const Sort = React.memo(() => {
   const dispatch = useDispatch();
   const sort = useSelector((state) => state.filter.sort);
+  const sortRef = React.useRef();
 
   const [open, setOpen] = React.useState(false);
 
@@ -24,8 +25,22 @@ export const Sort = React.memo(() => {
     setOpen(false);
   };
 
+  const closeModal = (e) => {
+    e.stopPropagation();
+  };
+
+  React.useEffect(() => {
+    const handleClickOutside = (event) => {
+      closeModal(event);
+      setOpen(false);
+    };
+    document.body.addEventListener("click", handleClickOutside);
+
+    return () => document.body.removeEventListener("click", handleClickOutside);
+  }, []);
+
   return (
-    <div className="sort">
+    <div ref={sortRef} className="sort" onClick={closeModal}>
       <div className="sort__label">
         <svg
           width="10"
@@ -46,7 +61,6 @@ export const Sort = React.memo(() => {
         <div className="sort__popup">
           <ul>
             {sortList.map((obj, i) => {
-              // console.log(obj);
               return (
                 <li
                   key={i}
