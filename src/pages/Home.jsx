@@ -2,7 +2,6 @@ import React, { useContext, useState } from "react";
 import qs from "qs";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
 
 import { SearchContext } from "../App";
 import Categories from "../components/Categories";
@@ -15,6 +14,7 @@ import {
   setCurrentPage,
   setFilters,
 } from "../redux/slices/filterSlice";
+import { fetchPizzas } from "../redux/slices/pizzaSlice";
 
 const Home = () => {
   const navigate = useNavigate();
@@ -22,12 +22,12 @@ const Home = () => {
   const isSearch = React.useRef(false);
   const isMounted = React.useRef(false);
 
+  const { items, status } = useSelector((state) => state.pizza);
   const { categoryId, currentPage, sort } = useSelector(
     (state) => state.filter
   );
 
   const { searchValue } = useContext(SearchContext);
-  const [items, setItems] = useState([]);
   const [isLoading, setIsLaoding] = useState(true);
 
   const onChangeCategory = React.useCallback((idx) => {
@@ -38,18 +38,22 @@ const Home = () => {
     dispatch(setCurrentPage(number));
   };
 
-  const fetchPizzas = () => {
+  const getPizzas = async () => {
     setIsLaoding(true);
     const sortBy = sort.sortProperty.replace("-", "");
     const order = sort.sortProperty.includes("-") ? "asc" : "desc";
     const category = categoryId > 0 ? `category=${categoryId}` : "";
     const search = searchValue ? `search=${searchValue}` : "";
 
-    const url = `https://628a09fee5e5a9ad32203421.mockapi.io/items?page=${currentPage}&limit=4&${category}&sortBy=${sortBy}&order=${order}${search}`;
-    axios.get(url).then((res) => {
-      setItems(res.data);
-      setIsLaoding(false);
-    });
+    dispatch(
+      fetchPizzas({
+        sortBy,
+        order,
+        category,
+        search,
+        currentPage,
+      })
+    );
   };
 
   React.useEffect(() => {
@@ -86,7 +90,7 @@ const Home = () => {
     window.scrollTo(0, 0);
 
     if (isSearch.current) {
-      fetchPizzas();
+      getPizzas();
     }
 
     isSearch.current = false;
@@ -105,7 +109,17 @@ const Home = () => {
         <Sort />
       </div>
       <h2 className="content__title">Все пиццы</h2>
-      <div className="content__items">{isLoading ? skeleton : pizzas}</div>
+      {status === "error" ? (
+        <div>
+          <h1>Error while fetching data 😕</h1>
+          <p>unfortunately got error while fetching pizza</p>
+        </div>
+      ) : (
+        <div className="content__items">
+          {status === "loading" ? skeleton : pizzas}
+        </div>
+      )}
+
       <Pagination value={currentPage} onChangePage={onChangePage} />
     </>
   );
