@@ -23,11 +23,10 @@ const Home = () => {
   const isMounted = React.useRef(false);
 
   const { items, status } = useSelector((state) => state.pizza);
-  const { categoryId, currentPage, sort } = useSelector(
+  const { categoryId, currentPage, sort, searchValue } = useSelector(
     (state) => state.filter
   );
 
-  const { searchValue } = useContext(SearchContext);
   const [isLoading, setIsLaoding] = useState(true);
 
   const onChangeCategory = React.useCallback((idx) => {
