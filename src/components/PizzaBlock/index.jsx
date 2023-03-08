@@ -2,15 +2,14 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
-import { addItem } from "../../redux/slices/cartSlice";
+import { addItem, selectCardItemById } from "../../redux/slices/cartSlice";
 const typeNames = ["тонкое", "традиционное"];
 
 const PizzaBlock = ({ id, title, price, imageUrl, sizes, types }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const cartItem = useSelector((state) =>
-    state.cart.items.find((obj) => obj.id === id)
-  );
+  const cartItem = useSelector(selectCardItemById(id));
+
   const [activeType, setActiveType] = useState(0);
   const [activeSize, setActiveSize] = useState(0);
   const addedCount = cartItem ? cartItem.count : 0;

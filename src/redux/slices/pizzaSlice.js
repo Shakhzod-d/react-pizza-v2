@@ -3,13 +3,15 @@ import axios from "axios";
 
 export const fetchPizzas = createAsyncThunk(
   "pizza/fetchPizzasStatus",
-  async (params) => {
+  async (params, thunkAPI) => {
     const { sortBy, order, category, search, currentPage } = params;
 
     const url = `/api/pizzas`;
     const { data } = await axios.get(url);
+
     // TODO: fix params later
     return data.pizzas;
+
   }
 );
 
