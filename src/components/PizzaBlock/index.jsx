@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 import { addItem } from "../../redux/slices/cartSlice";
 const typeNames = ["тонкое", "традиционное"];
 
 const PizzaBlock = ({ id, title, price, imageUrl, sizes, types }) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const cartItem = useSelector((state) =>
     state.cart.items.find((obj) => obj.id === id)
   );
@@ -25,11 +27,17 @@ const PizzaBlock = ({ id, title, price, imageUrl, sizes, types }) => {
     dispatch(addItem(item));
   };
 
+  const openSinglePizzaPage = () => {
+    navigate(`/pizza/${id}`);
+  };
+
   return (
     <div className="pizza-block-wrapper">
       <div className="pizza-block">
-        <img className="pizza-block__image" src={imageUrl} alt="Pizza" />
-        <h4 className="pizza-block__title">{title}</h4>
+        <div className="pizza-block__header" onClick={openSinglePizzaPage}>
+          <img className="pizza-block__image" src={imageUrl} alt="Pizza" />
+          <h4 className="pizza-block__title">{title}</h4>
+        </div>
         <div className="pizza-block__selector">
           <ul>
             {types.map((typeId, idx) => {
@@ -56,6 +64,7 @@ const PizzaBlock = ({ id, title, price, imageUrl, sizes, types }) => {
             ))}
           </ul>
         </div>
+
         <div className="pizza-block__bottom">
           <div className="pizza-block__price">от {price} ₽</div>
           <button

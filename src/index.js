@@ -4,6 +4,8 @@ import App from "./App";
 import { BrowserRouter } from "react-router-dom";
 import { store } from "./redux/store";
 import { Provider } from "react-redux";
+import { makeServer } from "./server";
+makeServer({ environment: "development" });
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(

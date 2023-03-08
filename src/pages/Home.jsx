@@ -3,7 +3,6 @@ import qs from "qs";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
-import { SearchContext } from "../App";
 import Categories from "../components/Categories";
 import Pagination from "../components/Pagination";
 import PizzaBlock from "../components/PizzaBlock";
@@ -23,11 +22,10 @@ const Home = () => {
   const isMounted = React.useRef(false);
 
   const { items, status } = useSelector((state) => state.pizza);
-  const { categoryId, currentPage, sort } = useSelector(
+  const { categoryId, currentPage, sort, searchValue } = useSelector(
     (state) => state.filter
   );
 
-  const { searchValue } = useContext(SearchContext);
   const [isLoading, setIsLaoding] = useState(true);
 
   const onChangeCategory = React.useCallback((idx) => {

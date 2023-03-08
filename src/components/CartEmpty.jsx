@@ -3,9 +3,9 @@ import { Link } from "react-router-dom";
 
 const CartEmpty = () => {
   return (
-    <div class="cart cart--empty">
+    <div className="cart cart--empty">
       <h2>
-        Корзина пустая <icon>😕</icon>
+        Корзина пустая <span>😕</span>
       </h2>
       <p>
         Вероятней всего, вы не заказывали ещё пиццу.
@@ -16,7 +16,7 @@ const CartEmpty = () => {
         src="https://github.com/Archakov06/react-pizza-html/blob/master/public/img/empty-cart.png?raw=true"
         alt="Empty cart"
       />
-      <Link to="/" class="button button--black">
+      <Link to="/" className="button button--black">
         <span>Вернуться назад</span>
       </Link>
     </div>
