@@ -11,7 +11,7 @@ export function makeServer() {
         };
       });
 
-      this.get("/api/pizza/:id", function (schema, request) {
+      this.get("/api/pizza/:id", (schema, request) => {
         let pizza = pizzas.find((item) => item.id === request.params.id);
         return pizza;
       });
