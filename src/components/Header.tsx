@@ -8,7 +8,7 @@ import logoSvg from "../assets/pizza-logo.svg";
 
 function Header() {
   const { totalPrice, items } = useSelector(selectCart);
-  const totalCount = items.reduce((sum, item) => {
+  const totalCount = items.reduce((sum: number, item: any) => {
     return sum + item.count;
   }, 0);
 
