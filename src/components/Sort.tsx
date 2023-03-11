@@ -27,7 +27,8 @@ export const Sort = React.memo(() => {
 
   const [open, setOpen] = React.useState(false);
 
-  const sortName = sortList[0].name;
+  // const sortName = sortList[0].name;
+  // console.log(sort);
 
   const onClickListItem = (obj: SortItem) => {
     dispatch(setSort(obj));
@@ -68,7 +69,7 @@ export const Sort = React.memo(() => {
           />
         </svg>
         <b>Сортировка по:</b>
-        <span onClick={() => setOpen(!open)}>{sortName}</span>
+        <span onClick={() => setOpen(!open)}>{sort.name}</span>
       </div>
       {open && (
         <div className="sort__popup">
