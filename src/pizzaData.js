@@ -109,4 +109,15 @@ export const pizzas = [
     category: 5,
     rating: 7,
   },
+  {
+    id: "10",
+    imageUrl:
+      "https://dodopizza.azureedge.net/static/Img/Products/Pizza/ru-RU/30367198-f3bd-44ed-9314-6f717960da07.jpg",
+    title: "love",
+    types: [0, 1],
+    sizes: [26, 30, 40],
+    price: 285,
+    category: 5,
+    rating: 7,
+  },
 ];

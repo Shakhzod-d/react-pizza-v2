@@ -11,7 +11,6 @@ export const fetchPizzas = createAsyncThunk(
 
     // TODO: fix params later
     return data.pizzas;
-
   }
 );
 
@@ -25,6 +24,9 @@ const pizzaSlice = createSlice({
   initialState,
   reducers: {
     setItems(state, action) {
+      state.items = action.payload;
+    },
+    setSearchPizza(state, action) {
       state.items = action.payload;
     },
   },
@@ -44,6 +46,6 @@ const pizzaSlice = createSlice({
   },
 });
 
-export const { setItems } = pizzaSlice.actions;
+export const { setItems, setSearchPizza } = pizzaSlice.actions;
 
 export default pizzaSlice.reducer;

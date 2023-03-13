@@ -15,6 +15,8 @@ export function makeServer() {
         let pizza = pizzas.find((item) => item.id === request.params.id);
         return pizza;
       });
+
+      this.get("/api/pizzas/:id");
     },
   });
 

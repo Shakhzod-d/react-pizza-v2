@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 import qs from "qs";
 import { useSelector, useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 import Categories from "../components/Categories";
 import Pagination from "../components/Pagination";
@@ -20,6 +20,7 @@ const Home: React.FC = () => {
   const dispatch = useDispatch();
   const isSearch = React.useRef(false);
   const isMounted = React.useRef(false);
+  const location = useLocation();
 
   const { items, status } = useSelector((state: any) => state.pizza);
   const { categoryId, currentPage, sort, searchValue } = useSelector(
