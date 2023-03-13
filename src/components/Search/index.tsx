@@ -1,8 +1,10 @@
 import React, { useState, useRef, useCallback } from "react";
 
 import debounce from "lodash.debounce";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setSearchValue } from "../../redux/slices/filterSlice";
+import { setSearchPizza } from "../../redux/slices/pizzaSlice";
+import { pizzas } from "../../pizzaData";
 
 import styles from "./Search.module.scss";
 
@@ -10,6 +12,8 @@ const Search: React.FC = () => {
   const [value, setValue] = useState("");
   const inputRef = useRef<HTMLInputElement>(null);
   const dispatch = useDispatch();
+  const state = useSelector((state: any) => state);
+  const { filter, pizza } = state;
 
   const onClickClear = () => {
     dispatch(setSearchValue(""));
@@ -22,10 +26,22 @@ const Search: React.FC = () => {
     inputRef.current?.focus();
   };
 
+  const searchPizza = (searchItemStr: string) => {
+    const foundItem = pizzas.filter((item: any) => {
+      return item.title.toLowerCase().match(searchItemStr.toLowerCase());
+    });
+
+    if (foundItem.length > 0) {
+      dispatch(setSearchPizza(foundItem));
+    }
+  };
+
   const updateSearchValue = useCallback(
     debounce((str: string) => {
       dispatch(setSearchValue(str));
+      searchPizza(str);
     }, 1000),
+
     []
   );
 
