@@ -1,28 +1,17 @@
 import React, { useState } from "react";
-import qs from "qs";
-import { useSelector, useDispatch } from "react-redux";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 import Categories from "../components/Categories";
 import Pagination from "../components/Pagination";
 import PizzaBlock from "../components/PizzaBlock";
 import Skeleton from "../components/PizzaBlock/Skeleton";
-import { sortList, SortPopup } from "../components/Sort";
-import {
-  FilterSliceState,
-  setCategoryId,
-  setCurrentPage,
-  setFilters,
-} from "../redux/slices/filterSlice";
-import { fetchPizzas, SearchPizzaParams } from "../redux/slices/pizzaSlice";
+import { SortPopup } from "../components/Sort";
+import { setCategoryId, setCurrentPage } from "../redux/slices/filterSlice";
+import { fetchPizzas } from "../redux/slices/pizzaSlice";
 import { useAppDispatch } from "../redux/store";
 
 const Home: React.FC = () => {
-  const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const isSearch = React.useRef(false);
-  const isMounted = React.useRef(false);
-  const location = useLocation();
 
   const { items, status } = useSelector((state: any) => state.pizza);
   const { categoryId, currentPage, sort, searchValue } = useSelector(
@@ -31,10 +20,9 @@ const Home: React.FC = () => {
 
   const [isLoading, setIsLaoding] = useState(true);
 
-  // @ts-ignore
   const onChangeCategory = React.useCallback((idx: number) => {
     dispatch(setCategoryId(idx));
-  });
+  }, []);
 
   const onChangePage = (page: number) => {
     dispatch(setCurrentPage(page));

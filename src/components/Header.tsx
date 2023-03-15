@@ -1,3 +1,4 @@
+import React from "react";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
@@ -6,7 +7,7 @@ import { selectCart } from "../redux/slices/cartSlice";
 
 import logoSvg from "../assets/pizza-logo.svg";
 
-function Header() {
+const Header = React.memo(() => {
   const { totalPrice, items } = useSelector(selectCart);
   const totalCount = items.reduce((sum: number, item: any) => {
     return sum + item.count;
@@ -26,7 +27,7 @@ function Header() {
             </div>
           </div>
         </Link>
-        <Search />
+        {location.pathname !== "/cart" && <Search />}
         <div className="header__cart">
           {location.pathname !== "/cart" && (
             <Link to="/cart" className="button button--cart">
@@ -68,6 +69,6 @@ function Header() {
       </div>
     </div>
   );
-}
+});
 
 export default Header;
