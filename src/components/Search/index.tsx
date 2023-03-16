@@ -2,8 +2,8 @@ import React, { useState, useRef, useCallback } from "react";
 
 import debounce from "lodash.debounce";
 import { useDispatch, useSelector } from "react-redux";
-import { setSearchValue } from "../../redux/slices/filterSlice";
-import { setSearchPizza } from "../../redux/slices/pizzaSlice";
+import { setSearchValue } from "../../redux/filter/slice";
+import { setSearchPizza } from "../../redux/pizza/slice";
 import { pizzas } from "../../pizzaData";
 
 import styles from "./Search.module.scss";
